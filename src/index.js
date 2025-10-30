@@ -1,5 +1,7 @@
 const axios = require("axios");
 
+MVP_BACKEND_URL = "http://localhost:4000"
+
 async function checkHealth(endpoint = "/is-healthy") {
   try {
     const url = `https://dede-hammiest-mitsue.ngrok-free.dev/student/${endpoint}`;
@@ -18,16 +20,19 @@ async function checkHealth(endpoint = "/is-healthy") {
   }
 }
 
-const createShortUrl = async ({ longUrl, userId, ttl }) => {
+const createShortUrl = async ({ longUrl, userId, ttl, domain, pathPrefix, private_key }) => {
   try {
-    const response = await axios.post(`${process.env.MVP_BACKEND_URL}/shorten`, {
+    const response = await axios.post(`${MVP_BACKEND_URL}/api/shortlink/shorten`, {
       longUrl,
       userId,
-      ttl
+      ttl,
+      domain,
+      pathPrefix
     }, {
       timeout: 5000,
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'private-key': private_key
       }
     });
     
