@@ -20,14 +20,11 @@ async function checkHealth(endpoint = "/is-healthy") {
   }
 }
 
-const createShortUrl = async ({ longUrl, userId, ttl, domain, pathPrefix, private_key }) => {
+const createShortUrl = async ({ longUrl, ttl, private_key }) => {
   try {
     const response = await axios.post(`${MVP_BACKEND_URL}/api/shortlink/shorten`, {
       longUrl,
-      userId,
       ttl,
-      domain,
-      pathPrefix
     }, {
       timeout: 5000,
       headers: {
