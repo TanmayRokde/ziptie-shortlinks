@@ -1,10 +1,15 @@
-# ziptie-shortlinks
+# ziptie-shortlinks ✂️
 
-![npm](https://img.shields.io/npm/v/%40ziptie-shortlink%2Fziptie-shortlinks?label=npm)
+> Developed by [TanmayRokde](https://github.com/TanmayRokde) & [pradnyaakumbhar](https://github.com/pradnyaakumbhar)
+
+![npm](https://img.shields.io/npm/v/%40ziptie-shortlink%2Fziptie-shortlinks?label=SDK&color=blueviolet)
 ![node](https://img.shields.io/badge/node-%3E%3D18-brightgreen)
+![bundle](https://img.shields.io/badge/minified-<2kb-blue)
 ![status](https://img.shields.io/badge/status-experimental-orange)
 
-Tiny helper SDK that hides the raw HTTP calls to the ZipTie short link backend. Drop it into any Node.js service, CLI tool, or script to create branded short links or ping the health endpoint with two simple functions.
+> **TL;DR**  
+> Convert any long URL into a branded ZipTie link with two function calls.  
+> Zero boilerplate. No guessing of endpoints. Built for quick automations.
 
 ---
 
@@ -23,14 +28,17 @@ Tiny helper SDK that hides the raw HTTP calls to the ZipTie short link backend. 
 
 ---
 
-## Feature Highlights
+## Feature Highlights ✨
 
-- **One-line health checks** – quickly verify that the backend tunnel or API is reachable.
-- **Short link creation** – wrap the POST call with retry-safe error handling and timeouts.
-- **Axios-powered** – inherits interceptors you configure globally in your host app.
-- **CommonJS module** – works everywhere from Lambda handlers to cron jobs.
+- 🚦 **One-line health checks** – sanity check the backend or NGROK tunnel.
+- 🔗 **Short link creation** – strongly typed params with friendly errors.
+- ⚡ **Axios-powered** – reuse interceptors, proxies, and retry strategies.
+- ♻️ **CommonJS module** – require it anywhere, from cron jobs to AWS Lambda.
 
-## How It Works
+> 📝 **Note**  
+> The SDK intentionally stays tiny and dependency-light so you can embed it into existing services without worrying about bundle bloat.
+
+## How It Works 🧩
 
 ```
 ┌────────────┐   checkHealth()    ┌────────────────────────────────┐
@@ -44,7 +52,7 @@ Tiny helper SDK that hides the raw HTTP calls to the ZipTie short link backend. 
 
 `createShortUrl` automatically sends JSON with `{ longUrl, userId, ttl }` to the backend defined via environment variables. Errors bubble up as `Error` objects with human-friendly messages.
 
-## Installation
+## Installation 📦
 
 ```bash
 npm install @ziptie-shortlink/ziptie-shortlinks
@@ -52,7 +60,7 @@ npm install @ziptie-shortlink/ziptie-shortlinks
 yarn add @ziptie-shortlink/ziptie-shortlinks
 ```
 
-## Configuration
+## Configuration ⚙️
 
 Set the backend base URL through an environment variable before requiring the package:
 
@@ -62,7 +70,7 @@ MVP_BACKEND_URL=https://links.api.ziptie.dev
 
 If you need to target staging versus production you can switch URLs at runtime (e.g., per process, per test) without changing the code.
 
-## Usage Examples
+## Usage Examples 🚀
 
 ```js
 const { createShortUrl, checkHealth } = require('@ziptie-shortlink/ziptie-shortlinks');
@@ -85,20 +93,20 @@ bootstrap().catch((error) => {
 });
 ```
 
-## API Reference
+## API Reference 📚
 
 | Function | Params | Returns |
 | -------- | ------ | ------- |
 | `checkHealth(endpoint?)` | `endpoint` optional string (defaults to `/is-healthy` and is appended to the NGROK root) | Resolves with `{ success, status, data }` or `{ success: false, error, status }`. |
 | `createShortUrl({ longUrl, userId, ttl })` | All fields are required; `ttl` represents seconds. | Resolves with the backend payload (typically `{ shortKey, shortUrl, expiresIn }`). Throws on failure. |
 
-## Error Handling
+## Error Handling 🧯
 
 - Network/timeout issues throw `Error('URL shortener service is unavailable')`.
 - Backend responses with JSON errors are rethrown with the server-provided message when present.
 - Wrap calls in your own retry/circuit breaker logic if you need extra resilience.
 
-## Development Scripts
+## Development Scripts 🛠️
 
 | Command | Description |
 | ------- | ----------- |
@@ -107,15 +115,16 @@ bootstrap().catch((error) => {
 
 Because this is a thin wrapper, tests are intentionally omitted for now. Feel free to add Jest/Vitest when expanding the surface area.
 
-## Release Process
+## Release Process 🚢
 
 1. Update `package.json` version (semver).
 2. Run `npm publish --access public`.
 3. Create a Git tag and GitHub release if desired.
 4. Update changelog/README with any new endpoints or env vars.
 
-## Troubleshooting
+## Troubleshooting 🧪
 
 - **`MVP_BACKEND_URL` not set** – the SDK will attempt to hit `undefined/shorten`. Always set the variable or inject it via `.env`.
-- **NGROK tunnel rotating** – supply the fresh base URL and redeploy consumers.
+- **NGROK tunnel rotating** – supply the fresh base URL and redeploy consumers (health checks will start failing first).
 - **TLS/proxy errors** – configure `axios.defaults.proxy` or set `HTTPS_PROXY` in the host environment if traffic must go through a proxy.
+- **CommonJS import errors** – ensure your bundler understands `type: "commonjs"` modules or switch to `require()` instead of `import`.
