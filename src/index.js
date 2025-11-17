@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-MVP_BACKEND_URL = "http://localhost:4000"
+MVP_BACKEND_URL = "https://ziptie-mvp-backend.vercel.app"
 
 async function checkHealth(endpoint = "/is-healthy") {
   try {
