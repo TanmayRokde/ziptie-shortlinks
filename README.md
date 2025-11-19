@@ -60,16 +60,6 @@ npm install @ziptie-shortlink/ziptie-shortlinks
 yarn add @ziptie-shortlink/ziptie-shortlinks
 ```
 
-## Configuration ⚙️
-
-Set the backend base URL through an environment variable before requiring the package:
-
-```
-MVP_BACKEND_URL=https://links.api.ziptie.dev
-```
-
-If you need to target staging versus production you can switch URLs at runtime (e.g., per process, per test) without changing the code.
-
 ## Usage Examples 🚀
 
 ```js
