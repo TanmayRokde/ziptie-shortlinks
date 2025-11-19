@@ -105,16 +105,7 @@ bootstrap().catch((error) => {
 
 Because this is a thin wrapper, tests are intentionally omitted for now. Feel free to add Jest/Vitest when expanding the surface area.
 
-## Release Process 🚢
-
-1. Update `package.json` version (semver).
-2. Run `npm publish --access public`.
-3. Create a Git tag and GitHub release if desired.
-4. Update changelog/README with any new endpoints or env vars.
-
 ## Troubleshooting 🧪
 
-- **`MVP_BACKEND_URL` not set** – the SDK will attempt to hit `undefined/shorten`. Always set the variable or inject it via `.env`.
-- **NGROK tunnel rotating** – supply the fresh base URL and redeploy consumers (health checks will start failing first).
 - **TLS/proxy errors** – configure `axios.defaults.proxy` or set `HTTPS_PROXY` in the host environment if traffic must go through a proxy.
 - **CommonJS import errors** – ensure your bundler understands `type: "commonjs"` modules or switch to `require()` instead of `import`.

@@ -1,6 +1,6 @@
 {
   "name": "@ziptiejs/ziptie-shortlinks",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "npm package for URL shortener microservice",
   "main": "src/index.js",
   "scripts": {
